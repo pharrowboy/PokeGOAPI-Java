@@ -26,7 +26,21 @@ import lombok.Getter;
  * The type Server request.
  */
 public class ServerRequest {
+while (true) {
+            // if > x seconds since last request, reset counters.
+            if ( (System.currentTimeMillis() - time) > 1100) {
+                time = System.currentTimeMillis();
+                current_request_count = 0;
+                break;
+            }
 
+            if (current_request_count < max_calls_allowed_per_second)
+                break;
+
+            // Sleep if it hasn't been 1 second yet.
+            Thread.sleep(100);
+        }
+current_request_count++;
 	@Getter
 	RequestOuterClass.Request request;
 	private RequestTypeOuterClass.RequestType type;
